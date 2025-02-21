@@ -41,7 +41,7 @@ export const FileManager = () => {
   const handleNewFolder = () => {
     toast({
       title: "新建文件夹",
-      description: "功能开发中"
+      description: "功能开发中，尽请期待"
     });
   };
 
