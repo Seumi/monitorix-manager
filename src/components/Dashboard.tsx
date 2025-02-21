@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Activity, Server, Database, Cloud } from 'lucide-react';
 import { ServerStatus } from './ServerStatus';
 import { SystemMetrics } from './SystemMetrics';
+import { ProcessViewer } from './ProcessViewer';
 
 const Dashboard = () => {
   return (
@@ -54,9 +55,13 @@ const Dashboard = () => {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
           <ServerStatus />
           <SystemMetrics />
+        </div>
+
+        <div className="w-full">
+          <ProcessViewer />
         </div>
       </div>
     </div>
