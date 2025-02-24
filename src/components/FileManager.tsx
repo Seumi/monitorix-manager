@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -9,17 +10,9 @@ import {
   Upload, 
   Download, 
   Trash,
-  FolderOpen,
-  Eye
+  FolderOpen
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface FileItem {
   id: string;
@@ -27,67 +20,22 @@ interface FileItem {
   type: 'file' | 'folder';
   size?: string;
   modified: string;
-  content?: string;
 }
 
 export const FileManager = () => {
   const { toast } = useToast();
   const [currentPath, setCurrentPath] = useState('/home/user');
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [viewingFile, setViewingFile] = useState<FileItem | null>(null);
 
   const files: FileItem[] = [
     { id: '1', name: 'Documents', type: 'folder', modified: '2024-03-20 10:30' },
     { id: '2', name: 'Downloads', type: 'folder', modified: '2024-03-19 15:45' },
-    { id: '3', name: 'Pictures', type: 'folder', modified: '2024-03-16 11:25' },
-    { id: '4', name: 'Music', type: 'folder', modified: '2024-03-21 09:15' },
-    { id: '5', name: 'Videos', type: 'folder', modified: '2024-03-20 14:30' },
-    { id: '6', name: 'Projects', type: 'folder', modified: '2024-03-19 16:45' },
-    { id: '7', name: 'Backup', type: 'folder', modified: '2024-03-14 13:55' },
-    { id: '8', name: 'Desktop', type: 'folder', modified: '2024-03-21 08:30' },
-    { id: '9', name: 'Applications', type: 'folder', modified: '2024-03-20 17:15' },
-    { id: '10', name: 'Library', type: 'folder', modified: '2024-03-19 12:40' },
-    { 
-      id: '11', 
-      name: 'config.json', 
-      type: 'file', 
-      size: '2.5KB', 
-      modified: '2024-03-18 09:15',
-      content: '{\n  "name": "my-app",\n  "version": "1.0.0",\n  "description": "A sample configuration file",\n  "port": 3000,\n  "host": "localhost"\n}'
-    },
-    { 
-      id: '12', 
-      name: 'data.csv', 
-      type: 'file', 
-      size: '1.8MB', 
-      modified: '2024-03-17 14:20',
-      content: 'id,name,age,city\n1,John Doe,30,New York\n2,Jane Smith,25,Los Angeles\n3,Bob Johnson,35,Chicago'
-    },
-    { 
-      id: '13', 
-      name: 'README.md', 
-      type: 'file', 
-      size: '4.2KB', 
-      modified: '2024-03-20 16:15',
-      content: '# My Project\n\n## Description\nThis is a sample project to demonstrate file viewing capabilities.\n\n## Installation\n```bash\nnpm install\n```\n\n## Usage\n```bash\nnpm start\n```'
-    },
-    { id: '14', name: 'script.sh', type: 'file', size: '856B', modified: '2024-03-13 10:10' },
-    { id: '15', name: 'index.html', type: 'file', size: '12KB', modified: '2024-03-21 11:25' },
-    { id: '16', name: 'styles.css', type: 'file', size: '8.4KB', modified: '2024-03-21 11:26' },
-    { id: '17', name: 'app.js', type: 'file', size: '45.2KB', modified: '2024-03-21 11:27' },
-    { id: '18', name: 'database.sql', type: 'file', size: '2.1MB', modified: '2024-03-20 15:40' },
-    { id: '19', name: 'README.md', type: 'file', size: '4.2KB', modified: '2024-03-20 16:15' },
-    { id: '20', name: 'package.json', type: 'file', size: '1.2KB', modified: '2024-03-20 16:18' },
-    { id: '21', name: 'docker-compose.yml', type: 'file', size: '3.8KB', modified: '2024-03-20 16:20' },
-    { id: '22', name: 'nginx.conf', type: 'file', size: '2.9KB', modified: '2024-03-19 14:30' },
-    { id: '23', name: '.env', type: 'file', size: '156B', modified: '2024-03-19 14:35' },
-    { id: '24', name: '.gitignore', type: 'file', size: '328B', modified: '2024-03-19 14:36' },
-    { id: '25', name: 'tsconfig.json', type: 'file', size: '1.4KB', modified: '2024-03-19 14:38' },
-    { id: '26', name: 'vite.config.ts', type: 'file', size: '856B', modified: '2024-03-19 14:40' },
-    { id: '27', name: 'yarn.lock', type: 'file', size: '286KB', modified: '2024-03-19 14:42' },
-    { id: '28', name: 'jest.config.js', type: 'file', size: '720B', modified: '2024-03-19 14:45' },
-    { id: '29', name: 'Dockerfile', type: 'file', size: '1.1KB', modified: '2024-03-19 14:48' },
-    { id: '30', name: 'LICENSE', type: 'file', size: '1.2KB', modified: '2024-03-19 14:50' }
+    { id: '3', name: 'config.json', type: 'file', size: '2.5KB', modified: '2024-03-18 09:15' },
+    { id: '4', name: 'data.csv', type: 'file', size: '1.8MB', modified: '2024-03-17 14:20' },
+    { id: '5', name: 'Pictures', type: 'folder', modified: '2024-03-16 11:25' },
+    { id: '6', name: 'report.pdf', type: 'file', size: '5.2MB', modified: '2024-03-15 16:40' },
+    { id: '7', name: 'backup', type: 'folder', modified: '2024-03-14 13:55' },
+    { id: '8', name: 'script.sh', type: 'file', size: '856B', modified: '2024-03-13 10:10' }
   ];
 
   const handleNewFolder = () => {
@@ -140,14 +88,6 @@ export const FileManager = () => {
     );
   };
 
-  const handleView = (e: React.MouseEvent, file: FileItem) => {
-    e.stopPropagation();
-    if (file.type === 'folder') {
-      return;
-    }
-    setViewingFile(file);
-  };
-
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-6">
@@ -183,7 +123,7 @@ export const FileManager = () => {
         />
       </div>
 
-      <div className="space-y-1 max-h-[600px] overflow-y-auto">
+      <div className="space-y-1">
         {files.map((item) => (
           <div
             key={item.id}
@@ -204,31 +144,9 @@ export const FileManager = () => {
                 修改时间: {item.modified}
               </div>
             </div>
-            {item.type === 'file' && item.content && (
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={(e) => handleView(e, item)}
-              >
-                <Eye className="h-4 w-4" />
-              </Button>
-            )}
           </div>
         ))}
       </div>
-
-      <Dialog open={!!viewingFile} onOpenChange={() => setViewingFile(null)}>
-        <DialogContent className="max-w-3xl">
-          <DialogHeader>
-            <DialogTitle>{viewingFile?.name}</DialogTitle>
-          </DialogHeader>
-          <ScrollArea className="h-[500px] w-full rounded-md border p-4">
-            <pre className="whitespace-pre-wrap break-words font-mono text-sm">
-              {viewingFile?.content}
-            </pre>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
     </Card>
   );
 };
