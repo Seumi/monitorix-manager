@@ -5,7 +5,6 @@ import { Activity, Server, Database, Cloud } from 'lucide-react';
 import { ServerStatus } from './ServerStatus';
 import { SystemMetrics } from './SystemMetrics';
 import { ProcessViewer } from './ProcessViewer';
-import { FileManager } from './FileManager';
 
 const Dashboard = () => {
   return (
@@ -61,9 +60,8 @@ const Dashboard = () => {
           <SystemMetrics />
         </div>
 
-        <div className="space-y-6">
+        <div className="w-full">
           <ProcessViewer />
-          <FileManager />
         </div>
       </div>
     </div>
